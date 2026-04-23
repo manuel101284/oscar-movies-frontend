@@ -1,0 +1,229 @@
+<div class="container mt-4">
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <h1 class="display-4">🏆 Películas Ganadoras del Oscar</h1>
+    <p class="lead">Catálogo completo de las mejores películas (1938-2000)</p>
+    <div class="badge bg-primary fs-6">Total: {{ movieCount }} películas</div>
+  </div>
+
+  <!-- ========== BARRA DE BÚSQUEDA ========== -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <div class="row g-3">
+        <!-- Búsqueda por tipo -->
+        <div class="col-md-5">
+          <div class="input-group">
+            <select class="form-select" style="max-width: 120px" [(ngModel)]="searchType">
+              <option value="title">Título</option>
+              <option value="director">Director</option>
+              <option value="year">Año</option>
+              <option value="actress">Actriz</option>
+              <option value="actor">Actor</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Buscar..." 
+                  [(ngModel)]="searchTerm" (keyup.enter)="search()">
+            <button class="btn btn-primary" (click)="search()">🔍 Buscar</button>
+            <button class="btn btn-secondary" (click)="resetFilters()">🗑️ Limpiar</button>
+          </div>
+        </div>
+        
+        <!-- Búsqueda por rango de años -->
+        <div class="col-md-4">
+          <div class="input-group">
+            <input type="number" class="form-control" placeholder="Año inicio" 
+                  [(ngModel)]="yearRange.start">
+            <input type="number" class="form-control" placeholder="Año fin" 
+                  [(ngModel)]="yearRange.end">
+            <button class="btn btn-info" (click)="searchByYearRange()">📅 Rango</button>
+          </div>
+        </div>
+        
+        <!-- Botones de acción -->
+        <div class="col-md-3 text-end">
+          <button class="btn btn-success me-2" (click)="showRecentMovies()">
+            🎬 Recientes
+          </button>
+          <button class="btn btn-primary" (click)="openCreateForm()">
+            ➕ Nueva Película
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diagnóstico -->
+  <div class="alert alert-info">
+    <strong>Diagnóstico:</strong><br>
+    loading = {{ loading }}<br>
+    movies.length = {{ movies.length }}<br>
+    filteredMovies.length = {{ filteredMovies.length }}
+  </div>
+
+  <!-- Loading -->
+  @if (loading) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p>Cargando películas...</p>
+    </div>
+  }
+
+  <!-- Contenido principal -->
+  @if (!loading) {
+    <!-- Grid de películas -->
+    <div class="row">
+      @for (movie of filteredMovies; track $index) {
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+
+            <img [src]="movie.posterUrlMovie || 'https://via.placeholder.com/300x400?text=No+Poster'"
+                class="card-img-top"
+                alt="{{ movie.titleMovie}}"
+                style="height: 350px; object-fit: cover"
+                (error)="movie.posterUrlMovie = 'https://via.placeholder.com/300x400?text=No+Poster'">
+            
+            <span class="badge bg-primary position-absolute top-0 end-0 m-2">
+              {{ movie.yearMovie }}
+            </span>
+
+            <div class="card-body">
+              <h5 class="card-title">{{ movie.titleMovie }}</h5>
+              <p class="card-text">
+                <strong>Director:</strong> {{ movie.directorMovie }}<br>
+                <strong>Año:</strong> {{ movie.yearMovie }}<br>
+                <strong>Duración:</strong> {{ movie.durationMovie }} min<br>
+                <strong>Actriz:</strong> {{ movie.actressMovie || '—' }}<br>
+                <strong>Actor:</strong> {{ movie.actorMovie || '—' }}
+              </p>
+              <div class="btn-group w-100" role="group">
+                <button class="btn btn-sm btn-outline-primary" (click)="viewMovie(movie)">👁️ Ver</button>
+                <button class="btn btn-sm btn-outline-warning" (click)="editMovie(movie)">✏️ Editar</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteMovie(movie.id)" title="Eliminar {{ movie.titleMovie}}">
+                  🗑️ Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Mensaje sin resultados -->
+    @if (filteredMovies.length === 0 && movies.length > 0) {
+      <div class="alert alert-info text-center mt-4">
+        <h4>🔍 No se encontraron películas</h4>
+        <p>Intenta con otros criterios de búsqueda</p>
+      </div>
+    }
+
+    @if (movies.length === 0) {
+      <div class="alert alert-warning text-center mt-4">
+        <h4>📭 No hay películas cargadas</h4>
+        <button class="btn btn-primary mt-2" (click)="loadMovies()">🔄 Reintentar</button>
+      </div>
+    }
+  }
+</div>
+
+<!-- Modal de detalles -->
+@if (selectedMovie) {
+  <div class="modal" style="display: block; background-color: rgba(0,0,0,0.5)">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{ selectedMovie.titleMovie }}</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p><strong>Director:</strong> {{ selectedMovie.directorMovie }}</p>
+              <p><strong>Año:</strong> {{ selectedMovie.yearMovie }}</p>
+              <p><strong>Duración:</strong> {{ selectedMovie.durationMovie }} minutos</p>
+              <p><strong>Actriz:</strong> {{ selectedMovie.actressMovie || '—' }}</p>
+              <p><strong>Actor:</strong> {{ selectedMovie.actorMovie || '—' }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal de formulario -->
+@if (showForm) {
+  <div class="modal" style="display: block; background-color: rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{ isEditing ? '✏️ Editar' : '➕ Nueva' }} Película</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeForm()"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Título *</label>
+              <input type="text" class="form-control" [(ngModel)]="formMovie.titleMovie" name="title">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Director *</label>
+              <input type="text" class="form-control" [(ngModel)]="formMovie.directorMovie" name="director">
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Año *</label>
+                <input type="number" class="form-control" [(ngModel)]="formMovie.yearMovie" name="year">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Duración (minutos) *</label>
+                <input type="number" class="form-control" [(ngModel)]="formMovie.durationMovie" name="duration">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Actriz principal</label>
+                <input type="text" class="form-control" [(ngModel)]="formMovie.actressMovie" name="actress">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Actor principal</label>
+                <input type="text" class="form-control" [(ngModel)]="formMovie.actorMovie" name="actor">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">URL del Poster</label>
+              <input type="url" class="form-control" [(ngModel)]="formMovie.posterUrlMovie" name="poster" placeholder="https://ejemplo.com/poster.jpg">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeForm()">Cancelar</button>
+          <button class="btn btn-primary" (click)="saveMovie()" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<style>
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+  }
+  .card {
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+</style>

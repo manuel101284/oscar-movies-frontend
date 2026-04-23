@@ -1,20 +1,27 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
+import { AppRoutingModule } from '../app/app-routing-module';
+import { App } from '../app/app';
+import { MoviesModule } from './features/movies/movies-module';
+
+// NO importes componentes individuales aquí
+// Los componentes ya están declarados en MoviesModule
 
 @NgModule({
   declarations: [
-    App
+    App  // Solo el componente principal
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    MoviesModule  // Esto ya trae todos los componentes de películas
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch())  // Proporciona HttpClient usando Fetch API
   ],
   bootstrap: [App]
 })
