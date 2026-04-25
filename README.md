@@ -35,20 +35,35 @@ Aplicación web completa para explorar el catálogo de películas ganadoras del 
 ## 📁 Estructura del proyecto
 src/app/
 ├── core/ # Servicios e interceptores globales
+
 │ └── services/
+
 │ └── movie.service.ts
+
 ├── features/ # Módulos funcionales
+
 │ └── movies/
+
 │ ├── components/ # Componentes de UI
+
 │ │ ├── movie-list/
+
 │ │ ├── movie-form/
+
 │ │ └── movie-detail/
+
 │ ├── services/ # Servicios específicos
+
 │ ├── models/ # Interfaces TypeScript
+
 │ └── movies.module.ts
+
 ├── shared/ # Componentes reutilizables
+
 ├── layout/ # Layout components
+
 ├── app-routing.module.ts # Configuración de rutas
+
 └── app.module.ts # Módulo principal
 
 
@@ -98,7 +113,7 @@ ng serve --open
 
 Página principal
 
-    Grills de películas con posters
+    Grilla de películas con posters
 
     Barra de búsqueda y filtros
 
