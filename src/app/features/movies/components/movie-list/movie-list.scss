@@ -1,0 +1,324 @@
+/* Contenedor principal */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.display-4 {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.lead {
+  color: var(--text-secondary);
+}
+
+.badge {
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  color: #1a1a1a;
+  font-weight: bold;
+  padding: 8px 16px;
+}
+
+/* Tarjeta de búsqueda */
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.card .card-body {
+  background-color: transparent;
+}
+
+/* Botones */
+.btn-primary {
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  border: none;
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ffed4a, #ffd700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border: none;
+}
+
+.btn-outline-primary {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent-color);
+  color: #1a1a1a;
+}
+
+/* Tarjetas de películas */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-title {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.card-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Badge de año */
+.position-absolute .badge {
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  color: #1a1a1a;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
+/* Botones dentro de la tarjeta */
+.btn-group .btn {
+  transition: all 0.2s ease;
+}
+
+.btn-group .btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Formularios */
+.form-control, .form-select {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.form-label {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+/* Alertas */
+.alert-info {
+  background-color: rgba(23, 162, 184, 0.2);
+  border-color: #17a2b8;
+  color: #17a2b8;
+}
+
+.alert-warning {
+  background-color: rgba(255, 193, 7, 0.2);
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* Spinner */
+.spinner-border {
+  color: var(--accent-color);
+}
+
+/* ========== MODAL MEJORADO ========== */
+
+/* Fondo del modal con blur */
+.modal {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Contenido del modal - Glassmorphism */
+.modal-content {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.98), rgba(20, 20, 20, 0.98));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: slideInUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header del modal */
+.modal-header {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 237, 74, 0.05));
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 24px;
+}
+
+.modal-header .modal-title {
+  color: #ffd700;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.modal-header .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Cuerpo del modal */
+.modal-body {
+  padding: 24px;
+}
+
+/* Imagen del poster */
+.modal-body .img-fluid {
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.modal-body .img-fluid:hover {
+  transform: scale(1.02);
+}
+
+/* Título de información */
+.modal-body h4 {
+  color: #ffd700;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  border-left: 4px solid #ffd700;
+  padding-left: 12px;
+}
+
+/* Tabla de información */
+.modal-body .table {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body .table th {
+  background-color: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  border-color: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  width: 35%;
+}
+
+.modal-body .table td {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body .table-bordered {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Footer del modal */
+.modal-footer {
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 20px 20px;
+}
+
+/* Botón cerrar */
+.modal-footer .btn-secondary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #ffd700;
+  padding: 8px 24px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 237, 74, 0.1));
+  border-color: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 10px;
+  }
+  
+  .modal-body .row {
+    flex-direction: column;
+  }
+  
+  .modal-body .col-md-4 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .modal-body .col-md-4 img {
+    max-width: 200px;
+  }
+}

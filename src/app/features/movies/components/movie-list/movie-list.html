@@ -137,12 +137,44 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-12">
-              <p><strong>Director:</strong> {{ selectedMovie.directorMovie }}</p>
-              <p><strong>Año:</strong> {{ selectedMovie.yearMovie }}</p>
-              <p><strong>Duración:</strong> {{ selectedMovie.durationMovie }} minutos</p>
-              <p><strong>Actriz:</strong> {{ selectedMovie.actressMovie || '—' }}</p>
-              <p><strong>Actor:</strong> {{ selectedMovie.actorMovie || '—' }}</p>
+            <!-- Columna para el poster -->
+            <div class="col-md-4">
+              <img [src]="selectedMovie.posterUrlMovie" 
+                  class="img-fluid rounded" 
+                  [alt]="selectedMovie.titleMovie"
+                  (error)="selectedMovie.posterUrlMovie = 'https://via.placeholder.com/300x400?text=Poster+no+disponible'">
+            </div>
+            <!-- Columna para la información -->
+            <div class="col-md-8">
+              <h4>📋 Información detallada</h4>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th style="width: 30%">Título:</th>
+                    <td>{{ selectedMovie.titleMovie }}</td>
+                  </tr>
+                  <tr>
+                    <th>Director:</th>
+                    <td>{{ selectedMovie.directorMovie }}</td>
+                  </tr>
+                  <tr>
+                    <th>Año:</th>
+                    <td>{{ selectedMovie.yearMovie }}</td>
+                  </tr>
+                  <tr>
+                    <th>Duración:</th>
+                    <td>{{ selectedMovie.durationMovie }} minutos</td>
+                  </tr>
+                  <tr>
+                    <th>Actriz principal:</th>
+                    <td>{{ selectedMovie.actressMovie || '—' }}</td>
+                  </tr>
+                  <tr>
+                    <th>Actor principal:</th>
+                    <td>{{ selectedMovie.actorMovie || '—' }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

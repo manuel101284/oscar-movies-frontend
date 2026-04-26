@@ -74,8 +74,8 @@ export class MovieService {
     return this.http.get<Movie[]>(`${this.apiUrl}/recent`);
   }
 
-  getPoster(title: string): string {
-    const apiKey = '97383e65';
-    return `https://img.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(title)}`;
+  getPoster(title: string): Observable<Movie[]> {
+    console.log('Solicitando películas al backend...');
+    return this.http.get<Movie[]>(this.apiUrl);
   }
 }

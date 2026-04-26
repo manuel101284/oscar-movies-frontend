@@ -222,6 +222,9 @@ export class MovieListComponent implements OnInit {
 
   viewMovie(movie: Movie): void {
     this.selectedMovie = movie;
+    console.log('🔍 Ver detalles de: ', movie.titleMovie);
+    console.log('📸 Poster URL: ', movie.posterUrlMovie);
+    console.log('🎬 Objeto Completo: ', movie);
   }
 
   closeModal(): void {
